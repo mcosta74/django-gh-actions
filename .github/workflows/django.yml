@@ -19,13 +19,12 @@ jobs:
         python-version: 3.7
         
     - name: Install pipenv
-      run: |
-        pip install pipenv
-      
+      uses: dschep/install-pipenv-action@v1
+
     - name: Install Dependencies
       run: |
         pipenv install --dev --deploy
 
     - name: Run Tests
       run: |
-        pipenv run pytest --help
+        pipenv run pytest project
