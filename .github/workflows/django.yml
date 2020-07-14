@@ -25,6 +25,10 @@ jobs:
       run: |
         pipenv install --dev --deploy
 
+    - name: Run Linter
+        run: |
+          pipenv run flake8 --config=project/tox.ini
+
     - name: Run Tests
       run: |
         pipenv run pytest project
