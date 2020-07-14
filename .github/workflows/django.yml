@@ -48,9 +48,8 @@ jobs:
       run: |
         pipenv run pytest project --junitxml=test_results/pytest-project.xml
         
-    - name: Upload a Build Artifact
+    - name: Upload a Build Artifacts
       uses: actions/upload-artifact@v2.0.1
       with:
-        # Artifact name
         # A file, directory or wildcard pattern that describes what to upload
-        path: test_results/
+        path: test_results/*
