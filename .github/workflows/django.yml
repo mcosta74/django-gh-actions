@@ -48,8 +48,16 @@ jobs:
       run: |
         pipenv run pytest project --junitxml=test_results/pytest-project.xml
         
-    - name: Upload a Build Artifacts
+    - name: Archive Linter results
       uses: actions/upload-artifact@v2.0.1
       with:
+        name: flake8.txt
         # A file, directory or wildcard pattern that describes what to upload
-        path: test_results/*
+        path: test_results/flake8-*.txt
+
+    - name: Archive Test results
+      uses: actions/upload-artifact@v2.0.1
+      with:
+        name: junit.xml
+        # A file, directory or wildcard pattern that describes what to upload
+        path: test_results/pytest-*.xml
