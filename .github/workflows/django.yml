@@ -10,26 +10,22 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 4
-      matrix:
-        python-version: [3.7]
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python
       uses: actions/setup-python@v1
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: 3.7
         
     - name: Install pipenv
       run: |
-        pip install --upgrade pip
         pip install pipenv
       
     - name: Install Dependencies
-      run: pipenv install --dev
+      run: |
+        pipenv install --dev --deploy
+
     - name: Run Tests
       run: |
-        ls
-        pipenv run pytest project
+        pipenv run pytest --help
