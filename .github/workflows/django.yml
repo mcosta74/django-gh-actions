@@ -35,29 +35,29 @@ jobs:
 
     - name: Prepare test results
       run: |
-        mkdir -p test_results/
+        mkdir -p out/tests
         
     - name: Run Linter
       run: |
         # stop the build if there are Python syntax errors or undefined names
         pipenv run flake8 project --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        pipenv run flake8 project --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --output-file test_results/flake8-project.txt
+        pipenv run flake8 project --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --output-file out/tests/flake8-project.txt
 
     - name: Run Tests
       run: |
-        pipenv run pytest project --junitxml=test_results/pytest-project.xml
+        pipenv run pytest project --junitxml=out/tests/pytest-project.xml
         
     - name: Archive Linter results
       uses: actions/upload-artifact@v2.0.1
       with:
-        name: flake8.txt
+        name: flake8-results
         # A file, directory or wildcard pattern that describes what to upload
-        path: test_results/flake8-*.txt
+        path: out/tests/flake8-*.txt
 
     - name: Archive Test results
       uses: actions/upload-artifact@v2.0.1
       with:
-        name: junit.xml
+        name: pytest-results
         # A file, directory or wildcard pattern that describes what to upload
-        path: test_results/pytest-*.xml
+        path: out/tests/pytest-*.xml
