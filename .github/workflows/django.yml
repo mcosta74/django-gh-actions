@@ -61,7 +61,7 @@ jobs:
     - name: Install Dependencies
       working-directory: ./project
       run: |
-        pip-sync project/requirements/base.txt project/requirements/dev.txt
+        pip-sync requirements/base.txt requirements/dev.txt
 
     - name: Prepare test results
       working-directory: ./project
