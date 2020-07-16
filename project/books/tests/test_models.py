@@ -33,7 +33,7 @@ def test_authors_and_books(authors_and_books):
     authors, books = authors_and_books
     assert Author.objects.count() == len(authors)
     assert Book.objects.count() == len(books)
-    assert Book.objects.filter(copies_sold__gt=0).count == 0
+    assert Book.objects.filter(copies_sold__gt=0).count() == 0
     
     author = authors[0]
     assert author.books.count() == 3
