@@ -76,9 +76,6 @@ jobs:
       run: |
         pytest project --junitxml=out/tests/pytest-${{ runner.os }}-${{ matrix.python-version }}-project.xml
       env:
-        SQL_DATABASE: app
-        SQL_USER: admin
-        SQL_PASSWORD: admin
         SQL_PORT: ${{ job.services.postgres.ports[5432] }}
         SQL_HOST: postgres
         
