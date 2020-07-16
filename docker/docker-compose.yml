@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  db:
+    build:
+      context: ./db
+
+    ports: 
+      - "7432:5432"
+
+    env_file: 
+      - ./.env.db
+      
+    volumes: 
+      - db-data:/var/lib/postgresql/data
+
+volumes: 
+  db-data:
