@@ -33,7 +33,7 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        pip-sync requirements/base.txt requirements/dev.txt
+        pip-sync project/requirements/base.txt project/requirements/dev.txt
 
     - name: Prepare test results
       run: |
