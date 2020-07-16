@@ -8,9 +8,9 @@ services:
     ports: 
       - "7432:5432"
 
-    environment: 
-      POSTGRES_PASSWORD: secretpassword
-
+    env_file: 
+      - ./.env.db
+      
     volumes: 
       - db-data:/var/lib/postgresql/data
 
