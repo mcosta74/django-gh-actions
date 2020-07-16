@@ -70,11 +70,11 @@ jobs:
         # stop the build if there are Python syntax errors or undefined names
         flake8 project --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 project --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --output-file out/tests/flake8-project.txt
+        flake8 project --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --output-file out/tests/flake8-${{ matrix.python-version }}-project.txt
 
     - name: Run Tests
       run: |
-        pytest project --junitxml=out/tests/pytest-project.xml
+        pytest project --junitxml=out/tests/pytest-${{ runner.os }}-${{ matrix.python-version }}-project.xml
       env:
         SQL_DATABASE: app
         SQL_USER: admin
