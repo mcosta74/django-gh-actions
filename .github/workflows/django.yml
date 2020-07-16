@@ -78,7 +78,7 @@ jobs:
         SQL_USER: admin
         SQL_PASSWORD: admin
         SQL_PORT: 5432
-        SQL_HOST: pstgres
+        SQL_HOST: postgres
         
     - name: Archive Linter results
       uses: actions/upload-artifact@v2.0.1
