@@ -59,36 +59,42 @@ jobs:
           ${{ runner.os }}-${{ matrix.python-version }}-pip-${{ hashFiles('project/requirements/*.txt') }}
 
     - name: Install Dependencies
+      working_directory: ./project
       run: |
         pip-sync project/requirements/base.txt project/requirements/dev.txt
 
     - name: Prepare test results
+      working_directory: ./project
       run: |
         mkdir -p out/tests
         
     - name: Run Linter
+      working_directory: ./project
       run: |
         # stop the build if there are Python syntax errors or undefined names
-        flake8 project --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 project --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --output-file out/tests/flake8-${{ matrix.python-version }}-project.txt
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --output-file out/tests/flake8-${{ matrix.python-version }}-project.txt
 
     - name: Run Tests
+      working_directory: ./project
       run: |
-        pytest project --junitxml=out/tests/pytest-${{ runner.os }}-${{ matrix.python-version }}-project.xml
+        pytest --junitxml=out/tests/pytest-${{ matrix.python-version }}-project.xml
       env:
-        SQL_PORT: ${{ job.services.postgres.ports[5432] }}
+          SQL_PORT: ${{ job.services.postgres.ports[5432] }}
         
     - name: Archive Linter results
       uses: actions/upload-artifact@v2.0.1
+      working_directory: ./project
       with:
-        name: flake8-results
+        name: flake8-${{ matrix.python-version }}-results
         # A file, directory or wildcard pattern that describes what to upload
         path: out/tests/flake8-*.txt
 
     - name: Archive Test results
       uses: actions/upload-artifact@v2.0.1
+      working_directory: ./project
       with:
-        name: pytest-results
+        name: pytest-${{ matrix.python-version }}-results
         # A file, directory or wildcard pattern that describes what to upload
         path: out/tests/pytest-*.xml
