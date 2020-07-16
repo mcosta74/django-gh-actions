@@ -80,7 +80,7 @@ jobs:
         SQL_DATABASE: postgres
         SQL_USER: postgres
         SQL_PASSWORD: postgres
-        SQL_PORT: ${{ job.services.foo.ports[5432] }}
+        SQL_PORT: ${{ job.services.postgres.ports[5432] }}
         SQL_HOST: localhost
         
     - name: Archive Linter results
