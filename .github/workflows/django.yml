@@ -18,14 +18,14 @@ jobs:
     # Service containers to run with `container-job`
     services:
       # Label used to access the service container
-      postgres:
+      foo:
         # Docker Hub image
         image: postgres:12-alpine
         # Provide the password for postgres
         env:
-          POSTGRES_USER: admin
-          POSTGRES_PASSWORD: admin
-          POSTGRES_DB: app
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
 
         ports:
           - 5432:5432
@@ -76,8 +76,11 @@ jobs:
       run: |
         pytest project --junitxml=out/tests/pytest-${{ runner.os }}-${{ matrix.python-version }}-project.xml
       env:
-        SQL_PORT: ${{ job.services.postgres.ports[5432] }}
-        SQL_HOST: postgres
+        SQL_DATABASE: postgres
+        SQL_USER: postgres
+        SQL_PASSWORD: postgres
+        SQL_PORT: ${{ job.services.foo.ports[5432] }}
+        SQL_HOST: foo
         
     - name: Archive Linter results
       uses: actions/upload-artifact@v2.0.1
